@@ -1,0 +1,16 @@
+{
+  "name": "iot-tum-traffic-tracker",
+  "version": "1.0.0",
+  "description": "IOT project on Intel Galileo Gen 2 to keep track of transportation system",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "restler": "^3.4.0"
+  }
+}
