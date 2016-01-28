@@ -16,11 +16,13 @@ app.get('/', function (req, res) {
   
   rest.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+data.lat+","+data.long+"&key=AIzaSyCAiuF4LPhSwYLdeUfJ_y5t57IaNueADW4").on('complete', function(geocode) {
     if(geocode.status=="OK"){
+      
       data.address=geocode.results[0].formatted_address;
     } else {
       data.address=geocode;
     }
     rest.get("http://www.distance24.org/route.json?stops="+data.address).on('complete', function(dist24) {
+      
       data.timeZoneId=dist24.stops[0].timeZone.id;
       data.timeZoneName=dist24.stops[0].timeZone.name;
       data.timeZoneAbbr=dist24.stops[0].timeZone.abbr;
@@ -34,9 +36,11 @@ app.get('/', function (req, res) {
       data.delay = ((1000 * parseInt(responseSec) + parseInt(responseMillisec)) - (1000 * parseInt(reqSeconds) + parseInt(reqMilliSeconds))) / 1000 + " seconds";
       data.responseTime = currentdate.getDate()+"/"+(currentdate.getMonth()+1)+"/"+currentdate.getFullYear()+" @ "+currentdate.getHours()+":"+currentdate.getMinutes()+":"+responseSec+":"+responseMillisec;
       res.set('Connection', 'keep-alive');
-      rest.post('http://192.168.1.102:3001/', {
+      console.log(data);
+      rest.post('https://ancient-fjord-57969.herokuapp.com/', {
         data: data,
       }).on('complete', function(data2, response) {
+        console.log("OK");
           if(data2.status==1){
             var status = {status:1};
             res.json(status);
