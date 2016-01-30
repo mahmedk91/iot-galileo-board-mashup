@@ -36,11 +36,9 @@ app.get('/', function (req, res) {
       data.delay = ((1000 * parseInt(responseSec) + parseInt(responseMillisec)) - (1000 * parseInt(reqSeconds) + parseInt(reqMilliSeconds))) / 1000 + " seconds";
       data.responseTime = currentdate.getDate()+"/"+(currentdate.getMonth()+1)+"/"+currentdate.getFullYear()+" @ "+currentdate.getHours()+":"+currentdate.getMinutes()+":"+responseSec+":"+responseMillisec;
       res.set('Connection', 'keep-alive');
-      console.log(data);
       rest.post('https://ancient-fjord-57969.herokuapp.com/', {
         data: data,
       }).on('complete', function(data2, response) {
-        console.log("OK");
           if(data2.status==1){
             var status = {status:1};
             res.json(status);
